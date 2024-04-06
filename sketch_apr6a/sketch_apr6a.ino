@@ -95,7 +95,7 @@ void loop() {
   // Serial.println(" meters"); // 46m too low according to Apple Watch -- 25.26m at Carleton Tunnel Dunton
 
   
-
+  /*
   // Magnetometer data
   float mag1 = (float(analogRead(MAGNETOMETER_1_OUTMINUS_PIN) - analogRead(MAGNETOMETER_1_OUTPLUS_PIN) - magOffset) / 1024 / magSens);
   // Serial.println(" mT \r");
@@ -108,6 +108,7 @@ void loop() {
 
   float mag4 = (float(analogRead(MAGNETOMETER_4_OUTMINUS_PIN) - analogRead(MAGNETOMETER_4_OUTPLUS_PIN) - magOffset) / 1024 / magSens);
   // Serial.println(" mT \r");
+  */
 
 
   //format Strings
@@ -128,7 +129,7 @@ void loop() {
   floatToString(bmp_slpressure, bmp_out + strlen(bmp_out), 2);
   strcat(bmp_out, " ");
   floatToString(bmp_realalt, bmp_out + strlen(bmp_out), 2);
-
+  /*
   char mag_out[50];
   floatToString(mag1, mag_out, 2);
   strcat(mag_out, " ");
@@ -137,6 +138,7 @@ void loop() {
   floatToString(mag3, mag_out + strlen(mag_out), 2);
   strcat(mag_out, " ");
   floatToString(mag4, mag_out + strlen(mag_out), 2);
+    */
 
   Serial.print("Elapsed time: ");
   Serial.println(elapsed);
@@ -147,17 +149,20 @@ void loop() {
   Serial.print("BMP180 data: ");
   Serial.println(bmp_out);
 
-  Serial.print("Magnetometer data: ");
-  Serial.println(mag_out);
+  //Serial.print("Magnetometer data: ");
+  //Serial.println(mag_out);
 
-  // SD Card writing
-  // dataFile = SD.open("data.txt", FILE_WRITE);
-  // if (dataFile) {
-  //   dataFile.println("Hello");
-  //   dataFile.close();
-  // } else {                                                                                                             
-  //   Serial.println("Error opening data file");
-  // }
+  SD Card writing
+   dataFile = SD.open("data.txt", FILE_WRITE);
+   if (dataFile) {
+     dataFile.println(elapsed);
+     dataFile.println(no2_out);
+     dataFile.println(bmp_out);
+     //dataFile.println(mag_out);
+     dataFile.close();
+   } else {                                                                                                             
+     Serial.println("Error opening data file");
+  }
 
   delay(1000);
 
