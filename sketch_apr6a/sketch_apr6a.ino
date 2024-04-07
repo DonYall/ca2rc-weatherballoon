@@ -44,11 +44,11 @@ void convertSeconds(long seconds, int &hours, int &minutes, int &remaining_secon
 
 void setup() {
   Serial.begin(9600);
-  // if (!bmp.begin()) {
-  //   Serial.println("Could not find a valid BMP085 sensor, check wiring!");
-  //   while (1) {
-  //   }
-  // }
+  if (!bmp.begin()) {
+     Serial.println("Could not find a valid BMP085 sensor, check wiring!");
+     while (1) {
+     }
+   }
 
   if (!SD.begin(SD_CARD_PIN)) {
     Serial.println("Card failed, or not present");
